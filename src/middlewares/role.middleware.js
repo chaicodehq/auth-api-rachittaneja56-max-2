@@ -15,5 +15,9 @@
 export function requireRole(...roles) {
   return (req, res, next) => {
     // Your code here
+    if(!req.user) res.status(401).json({ error: { message: "Not authenticated" } })
+    const allowedRoles = [...roles]
+    if(!allowedRoles.includes(req.user.role)) res.status(403).json({ error: { message: "Forbidden" } })
+    next()
   };
 }

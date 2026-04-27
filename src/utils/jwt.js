@@ -28,7 +28,8 @@ import jwt from 'jsonwebtoken';
  * - Keep JWT_SECRET secure and never commit it to version control
  */
 export function signToken(payload) {
-  // Your code here
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRES_IN})
+  return token
 }
 
 /**
@@ -67,4 +68,6 @@ export function signToken(payload) {
  */
 export function verifyToken(token) {
   // Your code here
+  const decoded = jwt.verify(token, process.env.JWT_SECRET)
+  return decoded
 }
